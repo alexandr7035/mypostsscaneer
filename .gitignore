@@ -129,3 +129,9 @@ dmypy.json
 .pyre/
 
 keys/
+
+
+
+# CUSTOM BLOCK
+.vscode
+*.swp
