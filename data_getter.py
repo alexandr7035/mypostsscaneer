@@ -32,15 +32,21 @@ class PostsScanner():
         data = self.api.wall.get(access_token=vk_app_service_key, 
                                 v=settings.vk_api_version,
                                 domain=group_name,
-                                count=1)
+                                count=0)
 
         
         print("TOTAL POSTS: " + str(len(data['items'])), "\n"*3)
         
-
         posts.extend(data['items'])
 
         print(posts)
 
-        return data
+        for post in posts:
+            post_link = "vk.com/"
+
+            post_link += group_name + "?w=wall" + str(post["from_id"]) + "_" + str(post["id"])
+            print(post_link)
+
+
+        return posts
         
