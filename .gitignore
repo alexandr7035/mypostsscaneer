@@ -135,3 +135,4 @@ keys/
 # CUSTOM BLOCK
 .vscode
 *.swp
+keys.py
