@@ -16,22 +16,31 @@ class PostsScanner():
         session = vk.Session()
         self.api = vk.API(session, v=settings.vk_api_version)
 
-        data = self.get_group_posts("1")
+        
         
     
     def get_group_posts(self, group_link):
         
+        print("GROUP LINK:", group_link)
+        
+        group_name = group_link.split("/")[-1]
+
+        
         posts = []
+
 
         data = self.api.wall.get(access_token=vk_app_service_key, 
                                 v=settings.vk_api_version,
-                                domain="cotocat",
+                                domain=group_name,
                                 count=1)
 
+        
         print("TOTAL POSTS: " + str(len(data['items'])), "\n"*3)
+        
 
         posts.extend(data['items'])
 
         print(posts)
 
         return data
+        

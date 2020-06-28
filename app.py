@@ -1,7 +1,10 @@
-
 import vk
 
 import data_getter
 
 
-postsscanner = data_getter.PostsScanner()
+scanner = data_getter.PostsScanner()
+
+data = scanner.get_group_posts("lftable")
+
+print(data)
