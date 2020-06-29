@@ -19,15 +19,16 @@ class PostsScanner():
         
         
     
-    def get_group_posts(self, group_link):
+    def get_group_posts(self, group_link, user_id):
         
         print("GROUP LINK:", group_link)
+        print("USER ID: ", user_id)
         
         group_name = group_link.split("/")[-1]
 
         
-        posts = []
-
+        all_posts = []
+        user_posts = []
 
         data = self.api.wall.get(access_token=vk_app_service_key, 
                                 v=settings.vk_api_version,
@@ -35,18 +36,22 @@ class PostsScanner():
                                 count=0)
 
         
-        print("TOTAL POSTS: " + str(len(data['items'])), "\n"*3)
+        print("TOTAL POSTS: " + str(len(data['items'])))
         
-        posts.extend(data['items'])
+        all_posts.extend(data['items'])
 
-        print(posts)
+        #print(posts)
 
-        for post in posts:
-            post_link = "vk.com/"
+        for post in all_posts:
+            try:
+                if post["signer_id"] == user_id:
+                    post_link = "vk.com/" + group_name + "?w=wall" + str(post["from_id"]) + "_" + str(post["id"])
+                    user_posts.append(post_link)
+            except KeyError:
+                pass
+        
+        print("TOTAL USER POSTS: ", len(user_posts), "\n")
+        print(user_posts)
 
-            post_link += group_name + "?w=wall" + str(post["from_id"]) + "_" + str(post["id"])
-            print(post_link)
-
-
-        return posts
+        return user_posts
         
