@@ -35,13 +35,14 @@ class PostsScanner():
                                 domain=group_name,
                                 count=0)
 
-        
-        print("TOTAL POSTS: " + str(len(data['items'])))
-        
         all_posts.extend(data['items'])
 
-        #print(posts)
+        print("TOTAL POSTS: " + str(len(all_posts)))
+        
+        
 
+
+        # Form links to user's posts and add them to list
         for post in all_posts:
             try:
                 if post["signer_id"] == user_id:
@@ -50,6 +51,7 @@ class PostsScanner():
             except KeyError:
                 pass
         
+
         print("TOTAL USER POSTS: ", len(user_posts), "\n")
         print(user_posts)
 
