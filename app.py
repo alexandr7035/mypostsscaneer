@@ -1,9 +1,10 @@
+import sys
 import vk
-
 import data_getter
 
-user_id = 188855048
-group_link = 'lftable'
+user_id = 188855048 
+
+group_link = sys.argv[1]
 
 scanner = data_getter.PostsScanner()
 

@@ -17,8 +17,6 @@ class PostsScanner():
         self.api = vk.API(session, v=settings.vk_api_version)
 
         
-        
-    
     def get_group_posts(self, group_link, user_id):
         
         print("GROUP LINK:", group_link)
@@ -30,17 +28,20 @@ class PostsScanner():
         all_posts = []
         user_posts = []
 
-        data = self.api.wall.get(access_token=vk_app_service_key, 
+        for i in range(0, settings.max_posts_count, settings.scanned_at_once_count):
+          
+            data = self.api.wall.get(access_token=vk_app_service_key, 
                                 v=settings.vk_api_version,
                                 domain=group_name,
-                                count=0)
+                                count=settings.scanned_at_once_count,
+                                offset=i)
 
-        all_posts.extend(data['items'])
+            all_posts.extend(data['items'])
 
         print("TOTAL POSTS: " + str(len(all_posts)))
         
-        
 
+        
 
         # Form links to user's posts and add them to list
         for post in all_posts:
